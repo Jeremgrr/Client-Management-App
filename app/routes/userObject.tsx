@@ -25,6 +25,11 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
         }
     };
 
+    const removeUser = (index: number) => {
+      setUsers(users.filter((_, i) => i !== index));
+
+    };
+
     return (
 
         <div style={{ padding: '20px' }}>
@@ -94,7 +99,21 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
               >
                 {user.name.charAt(0).toUpperCase()}
               </span>
-              {user.name}
+              <span style={{ marginRight: '10px' }}>{user.name}</span>
+              <button
+              onClick={() => removeUser(index)}
+              style={{
+                padding: '5px 10px',
+                fontSize: '14px',
+                backgroundColor: '#ff4d4d',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              Remove
+            </button>
             </div>
           ))}
         </div>
