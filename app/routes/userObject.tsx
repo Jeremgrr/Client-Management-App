@@ -17,6 +17,7 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
 
     const [users, setUsers] = useState<User[]>(initialUsers);
     const [newUserName, setNewUserName] = useState('');
+    const [searchQuery, setSearchQuery] = useState('');
 
     const addUser = () => {
         if (newUserName.trim()) {
@@ -30,9 +31,14 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
 
     };
 
+    const filteredUsers = users.filter((user) => 
+      user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
 
         <div style={{ padding: '20px' }}>
+          {/** Add New User Section */}
         <div style={{ marginBottom: '20px' }}>
           <input
             type="text"
@@ -62,6 +68,27 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
             Add User
           </button>
         </div>
+        {/* Search Section */}
+
+        <div style={{ marginBottom: '20px' }}>
+
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search for Clients"                              //Text placeholder for search bar
+            style={{
+              padding: '10px',
+              fontSize: '16px',
+              width: '100%',
+              border: '1px solid #ccc',
+              borderRadius: '4px',
+            }}
+          />
+        </div>
+
+        {/** Display Filtered Users */}
+
         <div
           style={{
             display: 'flex',
@@ -70,7 +97,9 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
             flexWrap: 'wrap',
           }}
         >
-          {users.map((user, index) => (
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map((user, index) => 
+          (
             <div
               key={index}
               style={{
@@ -101,7 +130,7 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
               </span>
               <span style={{ marginRight: '10px' }}>{user.name}</span>
               <button
-              onClick={() => removeUser(index)}
+              onClick={() => removeUser(users.indexOf(user))}
               style={{
                 padding: '5px 10px',
                 fontSize: '14px',
@@ -115,7 +144,11 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
               Remove
             </button>
             </div>
-          ))}
+          ))
+          ) : (
+            <p>No Users Found</p>
+          )
+        }
         </div>
       </div>
     );

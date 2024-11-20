@@ -33,10 +33,8 @@ export default function Index() {
 
 
         <main style={{ padding: '20', flexGrow: 1}}>
-          <h1 style={{fontSize: '30px', color: 'lightgrey'}}> Search for Client</h1>
           <span></span>
           <div style={{ display: 'flex'}}>
-            <h1 style={{textAlign: 'center'}}> Users</h1>
             <UserObject initialUsers={[{name: 'Alice'}, {name: 'Bob'}]} backgroundColor="blue"  />
 
 
