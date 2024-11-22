@@ -1,52 +1,33 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Link } from "@remix-run/react";
+import SideBar from "./SideBar";
+import UserObject from "./userObject";
+import React from "react";
 
-import { useOptionalUser } from "~/utils";
-import SideBar from './SideBar';
-import UserObject from './userObject';
 export const meta: MetaFunction = () => [{ title: "Client Manager" }];
 
 const sidebarItems = [
-  {label: 'Home', onclick: () => handleItemClick('Home')},
-  {label: 'About', onclick: () => handleItemClick('About')},
-  {label: 'Contact', onclick: () => handleItemClick('Contact')},
-
-
+  { label: "Home", onclick: () => handleItemClick("Home") },
+  { label: "About", onclick: () => handleItemClick("About") },
+  { label: "Contact", onclick: () => handleItemClick("Contact") },
 ];
 
-/*
-const userObjectItems = [
-  {name: "John Doe", onclick: () => handleItemClick('John Doe')},
-
-
-
-];
-*/
-
-//This is the main function
 export default function Index() {
-  const user = useOptionalUser();
   return (
-    <div style={{ display: 'flex'}}>
-        <SideBar items={sidebarItems} backgroundColor="#524F81" />
-        
+    <div style={{ display: "flex" }}>
+      <SideBar items={sidebarItems} backgroundColor="#524F81" />
 
-
-        <main style={{ padding: '20', flexGrow: 1}}>
-          <span></span>
-          <div style={{ display: 'flex'}}>
-            <UserObject initialUsers={[{name: 'Alice'}, {name: 'Bob'}]} backgroundColor="blue"  />
-
-
-          </div>
-        </main>
-
+      <main style={{ padding: "20", flexGrow: 1 }}>
+        <div style={{ display: "flex" }}>
+          <UserObject
+            initialUsers={[{ name: "Alice" }, { name: "Bob" }]}
+            backgroundColor="blue"
+          />
+        </div>
+      </main>
     </div>
-      
-      
   );
 }
+
 function handleItemClick(arg0: string) {
   throw new Error("Function not implemented.");
 }
-

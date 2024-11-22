@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Link } from "@remix-run/react";
+
 
 type User = {
     name: string;
-}
+};
 
 type userObjectProps = {
   initialUsers?: User[] //optional initial list of users
@@ -18,6 +21,7 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
     const [users, setUsers] = useState<User[]>(initialUsers);
     const [newUserName, setNewUserName] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
+    const navigate = useNavigate();
 
     const addUser = () => {
         if (newUserName.trim()) {
@@ -31,11 +35,17 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
 
     };
 
+    const handleUserClick = (userName: string) => {
+      navigate(`/user/${userName}`);
+    };
+
+
     const filteredUsers = users.filter((user) => 
       user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return (
+     
 
         <div style={{ padding: '20px' }}>
           {/** Add New User Section */}
@@ -109,8 +119,18 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
                 backgroundColor: '#f4f4f4',
                 borderRadius: '4px',
                 boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+                cursor: 'pointer',
               }}
             >
+              <Link
+              to={`/user/${user.name}`}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+                fontSize: "18px",
+              }}>
+                {user.name}
+              </Link>
               <span
                 style={{
                   width: '40px',
@@ -128,9 +148,12 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
               >
                 {user.name.charAt(0).toUpperCase()}
               </span>
-              <span style={{ marginRight: '10px' }}>{user.name}</span>
+              <span style={{ marginRight: '10px' }}></span>
               <button
-              onClick={() => removeUser(users.indexOf(user))}
+              onClick={(e) =>{
+                e.stopPropagation(); //prevent the parent onClick from triggering
+                removeUser(index);
+              }}
               style={{
                 padding: '5px 10px',
                 fontSize: '14px',
@@ -152,6 +175,7 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
         </div>
       </div>
     );
-  };
+};
 
 export default Userobject;
+
