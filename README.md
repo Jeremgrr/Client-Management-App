@@ -1,4 +1,6 @@
-# Remix Indie Stack
+# Remix Client Management Stack 
+
+
 
 ![The Remix Indie Stack](https://repository-images.githubusercontent.com/465928257/a241fa49-bd4d-485a-a2a5-5cb8e4ee0abf)
 
@@ -7,6 +9,19 @@ Learn more about [Remix Stacks](https://remix.run/stacks).
 ```sh
 npx create-remix@latest --template remix-run/indie-stack
 ```
+# Future Implementations 
+
+- Create/Reconfigure Database Table
+- Implement Database Table to index page and user profiles
+- Create navbar for better site navigation 
+- Configure views between guest/user/admin ?
+- Build out already established User Profiles
+- Create user File pages
+- Implement CRUD model for files
+- Implement AWS Services (ie. S3,lambda) to host files on the cloud securely
+- Build out Client Management Homepage
+  
+
 
 ## What's in the stack
 
@@ -24,7 +39,6 @@ npx create-remix@latest --template remix-run/indie-stack
 - Linting with [ESLint](https://eslint.org)
 - Static Types with [TypeScript](https://typescriptlang.org)
 
-Not a fan of bits of the stack? Fork it, change it, and use `npx create-remix --template your/repo`! Make it your own.
 
 ## Quickstart
 
