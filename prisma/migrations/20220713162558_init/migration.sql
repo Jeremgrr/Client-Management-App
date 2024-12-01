@@ -6,6 +6,14 @@ CREATE TABLE "User" (
     "updatedAt" DATETIME NOT NULL
 );
 
+--CreateTable
+CREATE TABLE "Client" (
+    "cid" TEXT NOT NULL PRIMARY KEY,
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+    "age" TEXT NOT NULL,
+    "dob" TEXT NOT NULL
+);
 -- CreateTable
 CREATE TABLE "Password" (
     "hash" TEXT NOT NULL,

@@ -77,11 +77,14 @@ const clientRegistration: React.FC<Item> = () => {
     */
 
     const addUser = () => {
-      if (firstName.trim()) {
+      if (!firstName.trim() || !lastName.trim() || !age.trim() || !dob.trim()) {
+        alert("Please fill out all fields.");
+        return;
+      }
           const newUser: UserItem = {
               item: {
                   id: userItem.length + 1, // Generate a simple unique ID
-                  name: firstName,
+                  name: firstName+' '+lastName,
                   age: parseInt(age, 10) || 0, // Convert age to a number or default to 0
                   dateOfBirth: dob, // Keep DOB as entered
               },
@@ -92,8 +95,8 @@ const clientRegistration: React.FC<Item> = () => {
           setlastName('');
           setAge('');
           setDob('');
-      }
-  };
+    }
+  
     return(
         <><h1 style={{display: 'flex', alignContent: 'center', justifyContent: 'center' }}>Client Registration</h1>
         <RoundedSquareContainer>
@@ -139,7 +142,7 @@ const clientRegistration: React.FC<Item> = () => {
                 <li key={user.item.id} className="fridge-item">
                   <div key = {index} className="fridge-item-content">
                     <br/> 
-                    <span  style={{display: 'flex', alignContent: 'center', justifyContent: 'center' }} className="fridge-item-name">Name: {user.item.name}</span>
+                    <span  style={{display: 'flex', alignContent: 'center', justifyContent: 'center' }} className="fridge-item-name">Name: {user.item.name} </span>
                     <span >Age: {user.item.age} </span>
                     <span >Date of Birth: {user.item.dateOfBirth} </span>
                   </div>
