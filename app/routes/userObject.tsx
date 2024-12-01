@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "@remix-run/react";
+import ReactDOM from 'react-dom/client';
 
 
 type User = {
@@ -21,6 +22,7 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
     const [users, setUsers] = useState<User[]>(initialUsers);
     const [newUserName, setNewUserName] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
+    const [inputs, setInputs] = useState({});
     const navigate = useNavigate();
 
     const addUser = () => {
@@ -29,6 +31,7 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
             setNewUserName(''); //clear the input field after adding
         }
     };
+   
 
     const removeUser = (index: number) => {
       setUsers(users.filter((_, i) => i !== index));
@@ -44,12 +47,68 @@ const Userobject: React.FC<userObjectProps> = ({ initialUsers = []}) => {
       user.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const handleChange = (event: { target: { name: any; value: any; }; }) => {
+      const name = event.target.name;
+      const value = event.target.value;
+      setInputs(values => ({...values, [name]: value}))
+    };
+
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
+      event.preventDefault();
+      alert(inputs);
+    }
+
     return (
      
 
         <div style={{ padding: '20px' }}>
           {/** Add New User Section */}
         <div style={{ marginBottom: '20px' }}>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Enter your age:
+              <input
+              style={{
+                padding: '10px',
+                fontSize: '16px',
+                marginRight: '10px',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+              }}
+                type="text"
+                name="age"
+                value={inputs.age || ""}
+                onChange={handleChange}
+                />
+            </label>
+            <label>
+              Date of Birth(mm/dd/yy):
+              <input 
+              style={{
+                padding: '10px',
+                fontSize: '16px',
+                marginRight: '10px',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+              }}
+                type="text"
+                name="dob"
+                value={inputs.dob || ""}
+                onChange={handleChange}
+                />
+              </label>
+            <input type='submit'
+              style={{
+                padding: '10px 15px',
+                fontSize: '16px',
+                backgroundColor: '#007bff',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }} />
+
+          </form>
           <input
             type="text"
             value={newUserName}

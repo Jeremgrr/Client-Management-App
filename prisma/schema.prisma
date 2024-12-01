@@ -36,3 +36,11 @@ model Note {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   userId String
 }
+
+model Client {
+  cid String @id @default(cuid()) //Unique identifier with default 
+  fName String
+  lName String
+  age String
+  dob String
+}

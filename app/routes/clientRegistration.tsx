@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import RoundedSquareContainer from '~/components/RoundedSquareContainer';
 import axios from 'axios';
 import SideBar from './SideBar';
+import { PrismaClient } from '@prisma/client';
 
 interface UserItem {
   item: Item;
@@ -15,8 +16,27 @@ interface Item{
     age: number;
     dateOfBirth: string;
 }
+const prisma = new PrismaClient();
+async function createClient() {
 
+  const newClient = await prisma.client.create({
+    data:{
+      fName: 'John',
+      lName: 'Doe',
+      age: '30',
+      dob: '1993-05-20',
+    },
 
+  });
+  console.log('New client created:', newClient);
+}
+
+async function fetchClients() {
+  const clients = await prisma.client.findMany();
+  console.log('All clients:', clients);
+}
+
+fetchClients();
 const clientRegistration: React.FC<Item> = () => {
 
     const [firstName,setfirstName] = useState<string>('');
@@ -141,4 +161,4 @@ const clientRegistration: React.FC<Item> = () => {
 };
 
 export default clientRegistration;
-
+createClient();
