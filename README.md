@@ -11,7 +11,7 @@ npx create-remix@latest --template remix-run/indie-stack
 ```
 # Future Implementations 
 
-- Create/Reconfigure Database Table
+  > Create/Reconfigure Database Table
 - Implement Database Table to index page and user profiles
 - Create navbar for better site navigation 
 - Configure views between guest/user/admin ?
@@ -191,4 +191,9 @@ We use [Prettier](https://prettier.io/) for auto-formatting in this project. It'
 ### Other Added Dependencies
 
 npm install react-router-dom
- 
+npm install @remix-run/react @remix-run/node
+
+
+### SQL Commands
+npx prisma: Displays all prisma commands
+npx prisma studio: opens sql website

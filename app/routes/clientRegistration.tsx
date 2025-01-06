@@ -1,3 +1,4 @@
+import { prisma } from '~/utils/db.server';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RoundedSquareContainer from '~/components/RoundedSquareContainer';
@@ -16,27 +17,12 @@ interface Item{
     age: number;
     dateOfBirth: string;
 }
-const prisma = new PrismaClient();
-async function createClient() {
-
-  const newClient = await prisma.client.create({
-    data:{
-      fName: 'John',
-      lName: 'Doe',
-      age: '30',
-      dob: '1993-05-20',
-    },
-
-  });
-  console.log('New client created:', newClient);
-}
 
 async function fetchClients() {
   const clients = await prisma.client.findMany();
   console.log('All clients:', clients);
 }
 
-fetchClients();
 const clientRegistration: React.FC<Item> = () => {
 
     const [firstName,setfirstName] = useState<string>('');
@@ -57,24 +43,24 @@ const clientRegistration: React.FC<Item> = () => {
           console.error('Error fetching fridge items:', error);
         }
       };
-    /*
-    const handleClientSubmit = async () => {
-        try{
-            await axios.post('http://localhost:3000/clientRegistration/add_item/', {
-                fName: firstName,
-                lName: lastName,
-                age: age,
-                dateofbirth: dob,
-            });
-            setfirstName('');
-            setlastName('');
-            setAge('');
-            setDob('');
-        }catch (error) {
-            console.error('Error adding new user:', error);
-        }
-    };
-    */
+
+      const createClient = () => {
+        console.log('Well we made it here');
+        const newClient = prisma.client.create({
+          data:{
+            fName: firstName,
+            lName: lastName,
+            age,
+            dob,
+          },
+      
+        });
+        console.log('New client created:', newClient);       
+
+
+      }
+      
+  
 
     const addUser = () => {
       if (!firstName.trim() || !lastName.trim() || !age.trim() || !dob.trim()) {
@@ -95,7 +81,14 @@ const clientRegistration: React.FC<Item> = () => {
           setlastName('');
           setAge('');
           setDob('');
+          createClient();
+          fetchClients();
     }
+
+    //get user info
+
+    
+    //store user info in client table
   
     return(
         <><h1 style={{display: 'flex', alignContent: 'center', justifyContent: 'center' }}>Client Registration</h1>
@@ -164,4 +157,4 @@ const clientRegistration: React.FC<Item> = () => {
 };
 
 export default clientRegistration;
-createClient();
+//createClient();
